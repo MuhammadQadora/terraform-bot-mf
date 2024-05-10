@@ -10,6 +10,7 @@ resource "aws_route_table" "public-rt" {
   tags = {
     Name = var.public-rt-name
   }
+  depends_on = [ aws_internet_gateway.gw,aws_vpc.main ]
 }
 # creates private route table
 resource "aws_route_table" "private-rt" {

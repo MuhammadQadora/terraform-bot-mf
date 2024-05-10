@@ -4,4 +4,5 @@ resource "aws_internet_gateway" "gw" {
   tags = {
     Name = "main-igw"
   }
+  depends_on = [ aws_vpc.main ]
 }

@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-front
+spec:
+  template:
+    spec:
+      containers:
+      - name: test-front
+        image: busybox:latest
+        command: ["/bin/sh","-c", "for run in {1..100}; do wget -q -O- http://frontend:80; done"]
+      restartPolicy: Never
