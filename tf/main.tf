@@ -29,7 +29,7 @@ module "sqs" {
 }
 
 module "sns" {
-  source = "./SNS"
+  source       = "./SNS"
   sns-top-name = var.sns-name
 }
 
@@ -67,7 +67,7 @@ module "dynamodb" {
 module "telegrambot" {
   source                     = "./TELEGRAMBOT"
   ami-id                     = data.aws_ami.ubuntu.id
-  bot-subnet-id         =       module.network.public-subnets-id[0]
+  bot-subnet-id              = module.network.public-subnets-id[0]
   key-name                   = module.key-pair.key-name
   region                     = var.region
   sns-arn                    = module.sns.sns-topic-arn
@@ -93,7 +93,7 @@ module "YOLOV5" {
   sns-name               = module.sns.sns-topic-name
   sqs-name               = module.sqs.sqs-name
   ec2-public_key         = var.ec2_public_key
-  key-name = module.key-pair.key-name
+  key-name               = module.key-pair.key-name
   public-azs             = module.network.public-subnets-id
   vpc-id                 = module.network.vpc_id
   vpc-cidr               = module.network.vpc-cidr-block
