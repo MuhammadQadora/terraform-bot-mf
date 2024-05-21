@@ -5,7 +5,7 @@ variable "alb-name" {
 
 variable "alb-sg-name" {
   type = string
-  default = "telegrambot-sg"
+  default = "ALB-sg"
 }
 
 variable "vpc_id" {
@@ -35,3 +35,7 @@ variable "targetgroup-port-number" {
   default = 5000
 }
 
+variable "certificate_arn" {
+  type = string
+  default = "arn:aws:acm:ap-northeast-1:933060838752:certificate/c9d30fb0-5a6a-447c-a859-6107cfa564f6"
+}
