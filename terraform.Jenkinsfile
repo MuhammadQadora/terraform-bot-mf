@@ -20,7 +20,8 @@ pipeline {
     GenericTrigger(
      genericVariables: [
       [key: 'ref', value: '$.ref'],
-      [key: 'pusher',value: '$.pusher.name']
+      [key: 'pusher',value: '$.pusher.name'],
+      [key: 'modifiedFile', value: '$.commits[0].modified[0]']
      ],
 
      causeString: 'Triggered on $ref',
@@ -35,8 +36,8 @@ pipeline {
      
      shouldNotFlatten: false,
 
-     regexpFilterText: '$ref',
-     regexpFilterExpression: 'refs/heads/main'
+     regexpFilterText: '$ref' '$modifiedFile',
+     regexpFilterExpression: 'refs/heads/main' 'tf/*'
     )
   }
   environment {
