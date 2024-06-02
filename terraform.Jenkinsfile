@@ -26,7 +26,7 @@ pipeline {
 
      causeString: 'Triggered on $ref',
 
-     token: '123456',
+     token: '123456', ///Remember to change this !!!!!!!!!!!!
      tokenCredentialId: '',
 
      printContributedVariables: true,
@@ -36,8 +36,8 @@ pipeline {
      
      shouldNotFlatten: false,
 
-     regexpFilterText: '$ref' '$modifiedFile',
-     regexpFilterExpression: 'refs/heads/main' 'tf/*'
+     regexpFilterText: '$ref $modifiedFile',
+     regexpFilterExpression: 'refs/heads/main tf.*'
     )
   }
   environment {
@@ -97,6 +97,7 @@ pipeline {
       steps {
         withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'Terraform-aws-creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
         script {
+          echo "=====================================${STAGE_NAME}====================================="
           sh """
             #!/bin/bash
             echo doing a ${params.CHOICE}
@@ -107,9 +108,20 @@ pipeline {
         }
       }
     }
+    stage("Artifacts"){
+        steps {
+          withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'Terraform-aws-creds', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+          script {
+            sh 'terraform -chdir=tf output > TerraformOutput.txt'
+            archiveArtifacts allowEmptyArchive: true, artifacts: '**/**.txt', followSymlinks: false
+            }
+          }
+        }
+    }
   }
   post {
     always {
+      cleanWs()
       emailext attachLog: true, body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:\nCheck console output at $BUILD_URL to view the results.', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'memomq70@gmail.com, firas.narani.1999@outlook.com'
     }
   }

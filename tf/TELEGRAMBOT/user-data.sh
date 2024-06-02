@@ -19,6 +19,6 @@ sudo systemctl start docker
 sudo systemctl enable docker
 sudo systemctl restart docker
 
-sudo docker run -e REGION_NAME=${REGION_NAME} \
+sudo docker run --name telegrambot -e REGION_NAME=${REGION_NAME} \
     -e GPT_TBL=${GPT_TBL} -e TELEGRAM_APP_URL=${TELEGRAM_APP_URL} -e SQS_URL=${SQS_URL} \
     -e SNS_ARN=${SNS_ARN} -e DYNAMO_TBL=${DYNAMO_TBL} -e SERVER_ENDPOINT=${SERVER_ENDPOINT} -p 5000:5000 muhammadqadora/telegrambot-aws-terraform:latest

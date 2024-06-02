@@ -1,5 +1,8 @@
 resource "aws_sns_topic" "user_updates" {
   name            = var.sns-top-name
+  tags = {
+    "Name" = "telegram-sns"
+  }
   delivery_policy = <<EOF
 {
   "http": {

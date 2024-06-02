@@ -19,5 +19,5 @@ sudo systemctl start docker
 sudo systemctl enable docker
 sudo systemctl restart docker
 
-sudo docker run -e REGION_NAME=${REGION_NAME} \
+sudo docker run --name yolov5 -e REGION_NAME=${REGION_NAME} \
     -e SQS_URL=${SQS_URL} -e SNS_ARN=${SNS_ARN} -e DYNAMO_TBL=${DYNAMO_TBL} muhammadqadora/yolov5-aws-terraform:latest
