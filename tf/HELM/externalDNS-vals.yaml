@@ -1,0 +1,13 @@
+provider: aws
+serviceAccount:
+  name: external-dns-sa
+
+
+podSecurityContext:
+  fsGroup: 65534
+  runAsUser: 0
+
+aws:
+  zoneType: public
+
+domainFilters[0]: atech-bot.click

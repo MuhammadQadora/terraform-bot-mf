@@ -1,1 +1,3 @@
 tf/.terr*
+Dockerfile
+grafana-kube

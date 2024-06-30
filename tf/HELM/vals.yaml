@@ -1,0 +1,8 @@
+server:
+  insecure: true
+  extraArgs:
+  - --insecure
+
+redis-ha:
+  persistentVolume:
+    enabled: true
