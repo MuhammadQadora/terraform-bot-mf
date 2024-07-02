@@ -603,7 +603,7 @@ resource "aws_iam_role_policy_attachment" "kerpenter-policy-attachment" {
 
 resource "aws_eks_pod_identity_association" "karpenter_role_pod_identity_assosciation" {
   cluster_name    = aws_eks_cluster.mf-cluster.name
-  namespace       = "karpenter"
+  namespace       = "kube-system"
   service_account = "karpenter"
   role_arn        = aws_iam_role.karpenter_role.arn
   depends_on = [ aws_eks_addon.eks-pod-identity-agent ]
