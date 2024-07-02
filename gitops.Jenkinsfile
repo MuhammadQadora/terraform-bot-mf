@@ -45,10 +45,18 @@ pipeline{
 
                     echo "Applying files"
                     aws eks update-kubeconfig --name $cluster_name --region $region
+                    kubectl create -f \
+                        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.37.0/pkg/apis/crds/karpenter.sh_nodepools.yaml" || true
+                    kubectl create -f \
+                        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.37.0/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml" || true
+                    kubectl create -f \
+                        "https://raw.githubusercontent.com/aws/karpenter-provider-aws/v0.37.0/pkg/apis/crds/karpenter.sh_nodeclaims.yaml" || true
+                    
                     kubectl patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
                     envsubst < repos-secret.yaml | kubectl $CHOICE -f -
-                    kubectl $CHOICE -f $myfile
                     kubectl $CHOICE -f core-app-controller.yaml
+                    kubectl $CHOICE -f $myfile
+                    kubectl $CHOICE -f ingress-app.yaml
                     '''
                 }
              }
@@ -66,17 +74,17 @@ pipeline{
                        kubectl delete secret ecr --ignore-not-found -n dev
                        kubectl delete secret ecr --ignore-not-found -n prod
                        id=$(aws sts get-caller-identity --query Account --output text)
-                       
+                       set +x
                        kubectl create secret docker-registry ecr \
                         --docker-server=$id.dkr.ecr.us-east-1.amazonaws.com \
                         --docker-username=AWS \
-                        --docker-password=$(aws ecr get-login-password --region us-east-1) -n dev 2> /dev/null 1> /dev/null || echo exists
+                        --docker-password=$(aws ecr get-login-password --region us-east-1) -n dev || echo exists
                         
                        kubectl create secret docker-registry ecr \
                         --docker-server=$id.dkr.ecr.us-east-1.amazonaws.com \
                         --docker-username=AWS \
-                        --docker-password=$(aws ecr get-login-password --region us-east-1) -n prod 2> /dev/null 1> /dev/null || echo exists
-                        
+                        --docker-password=$(aws ecr get-login-password --region us-east-1) -n prod || echo exists
+                       set -x
                        kubectl $CHOICE -f dev-app-controller.yaml
                        kubectl $CHOICE -f prod-app-controller.yaml
                        '''

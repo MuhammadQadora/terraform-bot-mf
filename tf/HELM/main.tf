@@ -178,52 +178,43 @@ resource "helm_release" "argocd" {
 #   name = "KarpenterController-${var.cluster_name}"
 # }
 
-# resource "helm_release" "karpenter" {
-#   namespace        = "karpenter"
-#   create_namespace = true
-#   name       = "karpenter"
-#   chart      = "oci://public.ecr.aws/karpenter/karpenter"
-#   version    = "0.37.0"
-#   wait = true
+resource "helm_release" "karpenter" {
+  namespace        = "kube-system"
+  name       = "karpenter"
+  chart      = "oci://public.ecr.aws/karpenter/karpenter"
+  version    = "0.37.0"
+  wait = true
 
-#   set {
-#     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-#     value = data.aws_iam_role.karpenter-role.arn
-#   }
-#   set {
-#     name = "serviceAccount.name"
-#     value = "karpenter"
-#   }
-#   set {
-#     name = "settings.interruptionQueue"
-#     value = var.cluster_name 
-#   }
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = data.aws_iam_role.karpenter-role.arn
+  }
+  set {
+    name = "serviceAccount.name"
+    value = "karpenter"
+  }
 
-#   set {
-#     name  = "settings.clusterName"
-#     value = var.cluster_name
-#   }
-#   set {
-#     name  = "settings.clusterEndpoint"
-#     value = var.cluster_endpoint
-#   }
+  set {
+    name  = "settings.clusterName"
+    value = var.cluster_name
+  }
+  
+  set {
+    name = "controller.resources.requests.cpu"
+    value = "1"
+  }
+  set {
+    name = "controller.resources.requests.memory"
+    value = "1Gi"
+  }
 
-#   set {
-#     name = "controller.resources.requests.cpu"
-#     value = "1"
-#   }
-#   set {
-#     name = "controller.resources.requests.memory"
-#     value = "1Gi"
-#   }
+  set {
+    name = "controller.resources.limits.cpu"
+    value = "1"
+  }
 
-#   set {
-#     name = "controller.resources.limits.cpu"
-#     value = "1"
-#   }
-
-#   set {
-#     name = "controller.resources.limits.memory"
-#     value = "1Gi"
-#   }
-# }
+  set {
+    name = "controller.resources.limits.memory"
+    value = "1Gi"
+  }
+}
