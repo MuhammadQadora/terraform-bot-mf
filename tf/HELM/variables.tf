@@ -33,3 +33,7 @@ variable "vpc_id" {
 variable "cluster_autoscaler_role_arn" {
   type = string
 }
+
+variable "karpenter-role" {
+  type = string
+}

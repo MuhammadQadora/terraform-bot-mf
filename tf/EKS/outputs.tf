@@ -29,9 +29,9 @@ output "cluster-autoscaler-role-arn" {
   value = aws_iam_role.cluster-autoscaler-role.arn
 }
 
-# output "aws_karpenter_role_arn" {
-#   value = aws_iam_role.karpenter-role.arn
-# }
+output "aws_karpenter_role_arn" {
+  value = aws_iam_role.karpenter_role.arn
+}
 
 # output "karpenter_instance_profile" {
 #   value = aws_cloudformation_stack.karpenter-stack.ar

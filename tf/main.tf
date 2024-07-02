@@ -116,5 +116,6 @@ module "helm" {
   aws_ingress_controller_role_arn = module.eks.aws_ingress_controller_role_arn
   external_dns_role_arn           = module.eks.external_dns_role_arn
   cluster_name                    = module.eks.cluster_name
+  karpenter-role = module.eks.aws_karpenter_role_arn
   depends_on                      = [module.eks]
 }

@@ -187,7 +187,7 @@ resource "helm_release" "karpenter" {
 
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = data.aws_iam_role.karpenter-role.arn
+    value = var.karpenter-role
   }
   set {
     name = "serviceAccount.name"
