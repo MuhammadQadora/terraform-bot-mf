@@ -630,6 +630,8 @@ resource "aws_iam_policy" "karpenter-policy" {
                 "ec2:CreateLaunchTemplate",
                 "ec2:CreateFleet",
                 "ec2:DescribeSpotPriceHistory",
+                "ec2:RequestSpotInstances",
+				        "ec2:CancelSpotInstanceRequests",
                 "pricing:GetProducts"
             ],
             "Effect": "Allow",
