@@ -78,7 +78,7 @@ module "eks" {
   sns_name_dev = module.sns.sns-topic-name-dev
   sns_name_prod = module.sns.sns-topic-name-prod
   sqs_name_dev = module.sqs.sqs-name-dev
-  sqs_name_prod = module.sqs.sqs-name-
+  sqs_name_prod = module.sqs.sqs-name-prod
   flags_table_dev = module.dynamodb.flags-table-name-dev
   flags_table_prod = module.dynamodb.flags-table-name-prod
   predictions_table_name_dev = module.dynamodb.predictions-table-name-dev
