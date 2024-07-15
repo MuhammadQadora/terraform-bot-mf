@@ -26,6 +26,11 @@ variable "user_name" {
   default = "memomq"
 }
 
+variable "user_name_firas" {
+  type = string
+  default = "firas.narani"
+}
+
 variable "region" {
   type = string
 }
