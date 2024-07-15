@@ -26,7 +26,9 @@ resource "aws_iam_policy" "bot-policy" {
                 "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.predictions_table_name_dev}",
                 "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.gpt_table_name_dev}",
                 "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.predictions_table_name_prod}",
-                "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.gpt_table_name_prod}"
+                "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.gpt_table_name_prod}",
+                "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.flags_table_dev}",
+                "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.flags_table_prod}"
             ]
         },
         {

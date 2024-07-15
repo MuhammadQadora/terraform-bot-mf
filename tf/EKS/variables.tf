@@ -68,3 +68,11 @@ variable "sqs_name_prod" {
 variable "sqs_name_dev" {
   type = string
 }
+
+variable "flags_table_dev" {
+  type = string
+}
+
+variable "flags_table_prod" {
+  type = string
+}
