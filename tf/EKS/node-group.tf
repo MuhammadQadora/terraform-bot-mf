@@ -3,13 +3,13 @@ resource "aws_eks_node_group" "main" {
   node_group_name = "main"
   node_role_arn   = aws_iam_role.worker-node-role.arn
   subnet_ids      = [var.private_subnet_ids[0],var.private_subnet_ids[1]]
-  instance_types = ["t3.xlarge"]
+  instance_types = ["c5.xlarge"]
   tags = {
     "Name" = "mf-cluster-main-node-group"
   }
   
   scaling_config {
-    desired_size = 2
+    desired_size = 1
     max_size     = 10
     min_size     = 1
   }
