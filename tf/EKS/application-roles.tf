@@ -20,7 +20,8 @@ resource "aws_iam_policy" "bot-policy" {
                 "dynamodb:GetItem",
                 "dynamodb:PutItem",
                 "dynamodb:Query",
-                "dynamodb:Scan"
+                "dynamodb:Scan",
+                "dynamodb:UpdateItem"
             ],
             "Resource": [
                 "arn:aws:dynamodb:${var.region}:${data.aws_caller_identity.current.account_id}:table/${var.predictions_table_name_dev}",
