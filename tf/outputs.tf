@@ -51,3 +51,7 @@ output "sns_arn_dev" {
 output "sns_arn_prod" {
   value = module.sns.sns-topic-arn-prod
 }
+
+output "new" {
+  value = module.dynamodb.flags-table-name-dev
+}
