@@ -4,6 +4,12 @@ terraform {
       source  = "hashicorp/aws"
       version = ">=5.0"
     }
+    helm = {
+      version = ">=2.0"
+    }
+    kubernetes = {
+      version = ">=2.0"
+    }
     # kubectl = {
     #   source  = "gavinbunney/kubectl"
     #   version = ">= 1.7.0"
@@ -26,11 +32,6 @@ provider "aws" {
   region = var.region
 }
 
-
-data "aws_eks_cluster_auth" "cluster_auth" {
-  name       = module.eks.cluster_name
-  depends_on = [module.eks]
-}
 
 provider "kubernetes" {
   host                   = module.eks.endpoint
